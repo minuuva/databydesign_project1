@@ -1,0 +1,18 @@
+2026-03-10 22:25:16,178 - INFO - Successfully downloaded data_output/ml-25m.zip
+2026-03-10 22:25:18,111 - INFO - Successfully extracted all files
+2026-03-10 22:25:18,229 - INFO - Loaded 62423 movies
+2026-03-10 22:25:22,164 - INFO - Loaded 25000095 ratings
+2026-03-10 22:25:22,457 - INFO - Loaded 1093360 tags
+2026-03-10 22:25:22,467 - INFO - Loaded 62423 links
+2026-03-10 22:25:23,989 - INFO - Created users table with 162541 users
+2026-03-10 22:25:25,895 - INFO - Loaded 15584448 genome scores
+2026-03-10 22:25:25,900 - INFO - Loaded 1128 genome tags
+2026-03-10 22:25:26,053 - INFO - Saved movies.parquet
+2026-03-10 22:25:27,538 - INFO - Saved ratings.parquet
+2026-03-10 22:25:27,694 - INFO - Saved tags.parquet
+2026-03-10 22:25:27,705 - INFO - Saved links.parquet
+2026-03-10 22:25:27,738 - INFO - Saved users.parquet
+2026-03-10 22:25:28,275 - INFO - Saved genome_scores.parquet
+2026-03-10 22:25:28,277 - INFO - Saved genome_tags.parquet
+2026-03-10 22:25:28,278 - INFO - Total size: 1.087 GB, Parquet: True
+2026-03-10 22:25:28,278 - INFO - Data acquisition completed successfully
