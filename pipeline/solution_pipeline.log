@@ -1,0 +1,59 @@
+2026-03-25 11:39:36,130 - INFO - DATA_DIR=/Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m
+2026-03-25 11:39:36,131 - INFO - Found /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m/movies.parquet
+2026-03-25 11:39:36,131 - INFO - Found /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m/ratings.parquet
+2026-03-25 11:39:36,131 - INFO - Found /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m/tags.parquet
+2026-03-25 11:39:36,133 - INFO - Found /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m/links.parquet
+2026-03-25 11:39:36,133 - INFO - Found /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m/users.parquet
+2026-03-25 11:39:36,133 - INFO - Found /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m/genome_scores.parquet
+2026-03-25 11:39:36,134 - INFO - Found /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m/genome_tags.parquet
+2026-03-25 11:39:36,139 - INFO - DuckDB connected (in-memory).
+2026-03-25 11:39:39,530 - INFO - Loaded movies from /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m/movies.parquet
+2026-03-25 11:39:39,882 - INFO - Loaded ratings from /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m/ratings.parquet
+2026-03-25 11:39:39,984 - INFO - Loaded tags from /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m/tags.parquet
+2026-03-25 11:39:39,991 - INFO - Loaded links from /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m/links.parquet
+2026-03-25 11:39:40,006 - INFO - Loaded users from /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m/users.parquet
+2026-03-25 11:39:40,115 - INFO - Loaded genome_scores from /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m/genome_scores.parquet
+2026-03-25 11:39:40,116 - INFO - Loaded genome_tags from /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/code/data_output/ml-25m/genome_tags.parquet
+2026-03-25 11:39:40,120 - INFO - movies rows: 62,423
+2026-03-25 11:39:40,120 - INFO - ratings rows: 25,000,095
+2026-03-25 11:39:40,121 - INFO - tags rows: 1,093,360
+2026-03-25 11:39:40,121 - INFO - links rows: 62,423
+2026-03-25 11:39:40,122 - INFO - users rows: 162,541
+2026-03-25 11:39:40,122 - INFO - genome_scores rows: 15,584,448
+2026-03-25 11:39:40,123 - INFO - genome_tags rows: 1,128
+2026-03-25 11:39:43,216 - INFO - Starting ratings data quality checks
+2026-03-25 11:39:43,468 - INFO - ratings summary:
+  n_rows  n_userid_nonnull  n_movieid_nonnull  n_rating_nonnull  n_timestamp_nonnull  rating_nulls  min_rating  max_rating  mean_rating
+25000095          25000095           25000095          25000095             25000095           0.0         0.5         5.0     3.533854
+2026-03-25 11:39:44,042 - INFO - duplicate pairs:
+ duplicate_user_movie_pairs
+                          0
+2026-03-25 11:39:44,076 - INFO - out of range:
+ out_of_range_ratings
+                  0.0
+2026-03-25 11:39:48,376 - INFO - ratings stats:
+       n  mean_rating  std_rating  min_rating  max_rating
+25000095     3.533854    1.060744         0.5         5.0
+2026-03-25 11:39:54,799 - INFO - ratings_sample rows: 2,000,000
+2026-03-25 11:39:54,836 - INFO - Top movies in sample (by # ratings in sample):
+ movieId                                     title  ratings_in_sample  avg_rating
+     318          Shawshank Redemption, The (1994)               6580    4.400304
+     296                       Pulp Fiction (1994)               6436    4.178760
+     356                       Forrest Gump (1994)               6417    4.040673
+     593          Silence of the Lambs, The (1991)               6041    4.153120
+    2571                        Matrix, The (1999)               5759    4.128147
+     260 Star Wars: Episode IV - A New Hope (1977)               5570    4.110503
+     480                      Jurassic Park (1993)               5108    3.669832
+     527                   Schindler's List (1993)               4938    4.241596
+    2959                         Fight Club (1999)               4745    4.227503
+     110                         Braveheart (1995)               4733    4.026199
+2026-03-25 11:40:03,287 - INFO - Baseline global-mean RMSE (test): 1.061087
+2026-03-25 11:40:13,401 - INFO - SVD RMSE (test): 0.897354
+2026-03-25 11:40:13,403 - INFO - SVD MAE (test): 0.688093
+2026-03-25 11:40:13,404 - INFO - RMSE improvement vs global mean: 15.43%
+2026-03-25 11:40:13,494 - INFO - Baseline global-mean MAE (test): 0.842030
+2026-03-25 11:40:31,580 - INFO - CV RMSE folds: [0.90052092 0.90103441 0.90152744]
+2026-03-25 11:40:31,586 - INFO - CV MAE folds: [0.69087996 0.69172824 0.69187907]
+2026-03-25 11:40:31,586 - INFO - CV RMSE mean/std: 0.901028 / 0.000411
+2026-03-25 11:40:31,587 - INFO - CV MAE mean/std: 0.691496 / 0.000440
+2026-03-25 11:42:40,644 - INFO - Saved figure: /Users/cmw/Desktop/s2026/ds4320/project1/ds4320-project1/visualizations/pipeline_cf_eval.png
