@@ -1,0 +1,132 @@
+2026-03-18 22:54:36,146 - INFO - ======================================================================
+2026-03-18 22:54:36,146 - INFO - MOVIELENS 25M PIPELINE DEMONSTRATION STARTED
+2026-03-18 22:54:36,147 - INFO - ======================================================================
+2026-03-18 22:54:36,147 - INFO - Data directory: ../../data_verification/ml-25m/
+2026-03-18 22:54:50,593 - INFO - 
+[1/7] Loading movies.csv...
+2026-03-18 22:54:50,652 - INFO -   ✓ Loaded 62,423 movies
+2026-03-18 22:54:50,653 - INFO - 
+[2/7] Loading ratings.csv...
+2026-03-18 22:54:54,419 - INFO -   ✓ Loaded 25,000,095 ratings
+2026-03-18 22:54:54,422 - INFO - 
+[3/7] Loading users.csv...
+2026-03-18 22:54:54,536 - INFO -   ✓ Loaded 162,541 users
+2026-03-18 22:54:54,536 - INFO - 
+[4/7] Loading tags.csv...
+2026-03-18 22:54:54,788 - INFO -   ✓ Loaded 1,093,360 tags
+2026-03-18 22:54:54,789 - INFO - 
+[5/7] Loading links.csv...
+2026-03-18 22:54:54,800 - INFO -   ✓ Loaded 62,423 links
+2026-03-18 22:54:54,801 - INFO - 
+[6/7] Loading genome-scores.csv (sample)...
+2026-03-18 22:54:54,817 - INFO -   ✓ Sampled 100,000 genome scores
+2026-03-18 22:54:54,817 - INFO - 
+[7/7] Loading genome-tags.csv...
+2026-03-18 22:54:54,819 - INFO -   ✓ Loaded 1,128 genome tags
+2026-03-18 22:54:54,819 - INFO - 
+✓ All tables loaded successfully
+2026-03-18 22:55:13,040 - INFO - ======================================================================
+2026-03-18 22:55:13,042 - INFO - TEST 1: RELATIONAL INTEGRITY VALIDATION
+2026-03-18 22:55:13,043 - INFO - ======================================================================
+2026-03-18 22:55:13,044 - INFO - 
+Checking Foreign Key Integrity...
+2026-03-18 22:55:13,273 - INFO -   ratings.userId → users.userId: 0 orphaned records
+2026-03-18 22:55:13,273 - INFO -   ✓ No orphaned ratings
+2026-03-18 22:55:13,411 - INFO -   ratings.movieId → movies.movieId: 0 orphaned records
+2026-03-18 22:55:13,411 - INFO -   ✓ No orphaned movie ratings
+2026-03-18 22:55:13,419 - INFO -   tags.userId → users.userId: 0 orphaned records
+2026-03-18 22:55:13,420 - INFO -   ✓ No orphaned user tags
+2026-03-18 22:55:13,430 - INFO -   tags.movieId → movies.movieId: 0 orphaned records
+2026-03-18 22:55:13,431 - INFO -   ✓ No orphaned movie tags
+2026-03-18 22:55:13,431 - INFO - 
+✓ ALL FOREIGN KEY RELATIONSHIPS VALIDATED
+2026-03-18 22:55:13,431 - INFO -   Zero orphaned records - relational integrity confirmed
+2026-03-18 22:55:28,418 - INFO - ======================================================================
+2026-03-18 22:55:28,419 - INFO - TEST 2: STATISTICAL VALIDATION
+2026-03-18 22:55:28,420 - INFO - ======================================================================
+2026-03-18 22:55:28,421 - INFO - 
+Validating Ratings Statistics...
+2026-03-18 22:55:28,660 - INFO -   Mean rating: 3.5339 (Expected: ~3.53)
+2026-03-18 22:55:28,660 - INFO -   Std dev: 1.0607 (Expected: ~1.06)
+2026-03-18 22:55:28,661 - INFO -   Min: 0.5 (Expected: 0.5)
+2026-03-18 22:55:28,661 - INFO -   Max: 5.0 (Expected: 5.0)
+2026-03-18 22:55:28,661 - INFO - 
+✓ STATISTICAL PROPERTIES VALIDATED
+2026-03-18 22:55:28,661 - INFO -   Mean rating within 0.01 of benchmark
+2026-03-18 22:55:28,661 - INFO -   Rating scale correctly bounded [0.5, 5.0]
+2026-03-18 22:55:38,785 - INFO - ======================================================================
+2026-03-18 22:55:38,787 - INFO - TEST 3: RELATIONAL QUERY DEMONSTRATION
+2026-03-18 22:55:38,787 - INFO - ======================================================================
+2026-03-18 22:55:38,788 - INFO - 
+Query: Top 10 Most-Rated Movies with Average Ratings
+2026-03-18 22:55:38,788 - INFO - ----------------------------------------------------------------------
+2026-03-18 22:55:39,264 - INFO -   Aggregated 25,000,095 ratings into 59,047 movie summaries
+2026-03-18 22:55:39,275 - INFO -   Rank 1: Forrest Gump (1994) - 81,491 ratings
+2026-03-18 22:55:39,276 - INFO -   Rank 2: Shawshank Redemption, The (1994) - 81,482 ratings
+2026-03-18 22:55:39,276 - INFO -   Rank 3: Pulp Fiction (1994) - 79,672 ratings
+2026-03-18 22:55:39,276 - INFO -   Rank 4: Silence of the Lambs, The (1991) - 74,127 ratings
+2026-03-18 22:55:39,277 - INFO -   Rank 5: Matrix, The (1999) - 72,674 ratings
+2026-03-18 22:55:39,277 - INFO -   Rank 6: Star Wars: Episode IV - A New Hope (1977) - 68,717 ratings
+2026-03-18 22:55:39,277 - INFO -   Rank 7: Jurassic Park (1993) - 64,144 ratings
+2026-03-18 22:55:39,277 - INFO -   Rank 8: Schindler's List (1993) - 60,411 ratings
+2026-03-18 22:55:39,277 - INFO -   Rank 9: Braveheart (1995) - 59,184 ratings
+2026-03-18 22:55:39,278 - INFO -   Rank 10: Fight Club (1999) - 58,773 ratings
+2026-03-18 22:55:39,278 - INFO - 
+✓ RELATIONAL JOIN OPERATIONS VALIDATED
+2026-03-18 22:55:39,278 - INFO -   Successfully joined ratings and movies tables
+2026-03-18 22:55:39,278 - INFO -   Aggregated 25,000,095 ratings into movie-level statistics
+2026-03-18 22:55:50,837 - INFO - ======================================================================
+2026-03-18 22:55:50,838 - INFO - TEST 4: GENRE ANALYSIS DEMONSTRATION
+2026-03-18 22:55:50,839 - INFO - ======================================================================
+2026-03-18 22:55:50,840 - INFO - 
+Analyzing average ratings by genre (using 100K sample for speed)...
+2026-03-18 22:55:51,584 - INFO -   Sampled 100,000 ratings for genre analysis
+2026-03-18 22:56:03,907 - INFO -   Analyzed 270,694 genre-rating pairs across 19 genres
+2026-03-18 22:56:03,910 - INFO -   Top genre: Film-Noir - 3.96★
+2026-03-18 22:56:03,911 - INFO -   Top genre: War - 3.80★
+2026-03-18 22:56:03,911 - INFO -   Top genre: Documentary - 3.74★
+2026-03-18 22:56:03,911 - INFO -   Top genre: Crime - 3.68★
+2026-03-18 22:56:03,912 - INFO -   Top genre: Drama - 3.68★
+2026-03-18 22:56:03,912 - INFO - 
+✓ GENRE-BASED AGGREGATION VALIDATED
+2026-03-18 22:56:03,912 - INFO -   Genre patterns match expected industry trends
+2026-03-18 22:56:37,960 - INFO - ======================================================================
+2026-03-18 22:56:37,961 - INFO - TEST 5: USER BEHAVIOR VALIDATION
+2026-03-18 22:56:37,962 - INFO - ======================================================================
+2026-03-18 22:56:37,962 - INFO - 
+Analyzing user rating patterns...
+2026-03-18 22:56:37,979 - INFO -   20-50: 61,467 users (37.8%)
+2026-03-18 22:56:37,980 - INFO -   51-100: 37,972 users (23.4%)
+2026-03-18 22:56:37,980 - INFO -   101-500: 53,439 users (32.9%)
+2026-03-18 22:56:37,980 - INFO -   501-1000: 6,993 users (4.3%)
+2026-03-18 22:56:37,981 - INFO -   1001-5000: 2,652 users (1.6%)
+2026-03-18 22:56:37,981 - INFO -   5000+: 18 users (0.0%)
+2026-03-18 22:56:37,985 - INFO - 
+✓ USER SEGMENTATION VALIDATED
+2026-03-18 22:56:37,986 - INFO -   Median user: 71 ratings
+2026-03-18 22:56:37,986 - INFO -   Mean user: 153.8 ratings
+2026-03-18 22:56:37,986 - INFO -   Power users (1000+ ratings): 2,675
+2026-03-18 22:56:37,986 - INFO -   Confirms cold-start challenge: majority have <100 ratings
+2026-03-18 22:56:49,390 - INFO - ======================================================================
+2026-03-18 22:56:49,391 - INFO - TEST 6: TEMPORAL PATTERN VALIDATION
+2026-03-18 22:56:49,392 - INFO - ======================================================================
+2026-03-18 22:56:49,393 - INFO - 
+Analyzing rating volume over time...
+2026-03-18 22:56:51,028 - INFO -   Dataset spans: 1995 - 2019
+2026-03-18 22:56:51,029 - INFO -   1995: 3 ratings (baseline)
+2026-03-18 22:56:51,030 - INFO -   2000: 1,735,398 ratings (+57846500.0% growth)
+2026-03-18 22:56:51,030 - INFO -   2005: 1,613,550 ratings (-7.0% growth)
+2026-03-18 22:56:51,030 - INFO -   2010: 792,436 ratings (-50.9% growth)
+2026-03-18 22:56:51,031 - INFO -   2015: 1,604,971 ratings (+102.5% growth)
+2026-03-18 22:56:51,031 - INFO -   2018: 1,310,761 ratings (-18.3% growth)
+2026-03-18 22:56:51,031 - INFO -   2019: 1,200,634 ratings (-8.4% growth)
+2026-03-18 22:56:51,032 - INFO - 
+✓ TEMPORAL ANALYSIS VALIDATED
+2026-03-18 22:56:51,032 - INFO -   Peak year: 2016 with 1,757,440 ratings
+2026-03-18 22:56:51,032 - INFO -   10x+ growth from 2010 to 2018 confirms temporal weighting need
+2026-03-18 22:57:38,793 - INFO - 
+KEY FINDINGS:
+2026-03-18 22:57:38,807 - INFO -   Rating mean: 3.5339
+2026-03-18 22:57:38,810 - INFO -   User median activity: 71
+2026-03-18 22:57:38,810 - INFO -   Total movies: 62,423
+2026-03-18 22:57:38,827 - INFO -   Temporal span: 1995 - 2019
