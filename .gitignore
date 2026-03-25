@@ -1,0 +1,13 @@
+# MovieLens raw exports (rubric: data on OneDrive, not in GitHub)
+code/data_output/ml-25m/*.csv
+code/data_output/ml-25m/*.parquet
+code/data_output/ml-25m.zip
+
+# Environments
+.venv/
+.venv-*/
+__pycache__/
+*.pyc
+
+# OS / editor
+.DS_Store
