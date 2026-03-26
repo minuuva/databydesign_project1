@@ -92,7 +92,7 @@ This project operates within the domain of recommender systems and collaborative
 ### Background Reading
 All background reading materials are available in this folder: [Background Readings Folder](https://drive.google.com/drive/folders/1gbzGKXDH2UGdPDgIPnDbU24Pla-HGTWc?usp=drive_link). 
 
-The folder contains 5 research readings related to collobarative filtering, deep learning approaches, and recommender system evaluation. 
+The folder contains 5 research readings related to collaborative filtering, deep learning approaches, and recommender system evaluation. 
 
 ### Summary Table of Background Readings
 | **Title** | **Brief Description** | **Link to File** |
@@ -118,57 +118,57 @@ The dataset was downloaded as a 265 MB ZIP archive (`ml-25m.zip`), which expands
 
 | File | Description | Location |
 |------|-------------|----------|
-| data_acquisition.ipynb | Complete data acquisition pipeline that downloads MovieLens 25M dataset from GroupLens, extracts CSV files, creates derived users table from ratings, converts to Parquet format, and verifies all rubric requirements. Includes comprehensive error handling, logging, and data validation. | [code/data_acquisition.ipynb](code/data_acquisition.ipynb) |
+| data_acquisition.ipynb | Complete data acquisition code that downloads MovieLens 25M dataset from GroupLens, extracts CSV files, creates derived users table from ratings, converts to Parquet format, and verifies all rubric requirements. Includes comprehensive error handling, logging, and data validation. | [code/data_acquisition.ipynb](code/data_acquisition.ipynb) |
 
 ### Bias Identification
 
-Several sources of systematic bias exist in this dataset that must be acknowledged:
+Bias can enter **MovieLens 25M** because the data are **observational ratings from a volunteer platform**, not a random sample of moviegoers or films.
 
-**Selection Bias:** Users self-selected to participate in the MovieLens platform and actively chose to rate movies, representing a subset of the population with above-average interest in films and willingness to provide ratings. This creates a bias toward movie enthusiasts rather than casual viewers, potentially skewing rating distributions higher than the general population.
+**Selection bias; participation bias:** Users self-select into MovieLens and into active rating behavior, so the logged population skews toward movie-interested, web-using volunteers rather than a representative cross-section of all viewers.
 
-**Rating Bias:** Users demonstrate a tendency to rate movies they enjoyed or strongly disliked, creating a bimodal distribution. Movies with few ratings may not be representative of broader opinion, as neutral experiences are less likely to generate ratings. This "voluntary response bias" means the dataset overrepresents strong opinions.
+**Missing-not-at-random (MNAR) bias:** Users rate only a tiny slice of movies they could watch; which interactions are missing depends on interest, visibility, and memory, so unobserved cells are not “random gaps.”
 
-**Temporal Bias:** The 24-year data collection period (1995-2019) reflects changing movie consumption patterns, rating behaviors, and platform evolution. Earlier users may have systematically different rating patterns than recent users due to platform maturity, user interface changes, and shifting cultural norms around online reviews.
+**Voluntary-response / intensity bias:** People disproportionately rate titles they feel strongly about (or that are salient), which can underrepresent neutral or forgettable experiences compared with a full viewing diary.
 
-**Popularity Bias:** Popular mainstream movies receive disproportionately more ratings than niche or independent films, creating a highly skewed long-tail distribution. The top 1% of movies account for a significant portion of all ratings, while thousands of films have minimal coverage.
+**Popularity bias; long-tail imbalance:** A small set of mainstream titles attracts most ratings, while many items receive almost none, so collaborative signal is unevenly concentrated.
 
-**Survivorship Bias:** Only movies that users chose to watch and subsequently rate appear in the dataset. Films that users deliberately avoided or never heard of are completely missing, creating an incomplete picture of true preferences and potentially overstating quality assessments.
+**Temporal bias:** The collection spans many years; platform norms, catalog mix, and rating habits can shift over time, so older and newer ratings are not automatically interchangeable.
 
-**Genre Bias:** Certain genres (Drama, Comedy, Action) dominate the dataset while others (Documentary, Foreign Language, Silent Films) are significantly underrepresented, reflecting both platform demographics and broader Hollywood production biases.
+**Representation bias (coverage bias):** The set of rated movies reflects what was available and what users chose to watch—some genres, eras, and regions appear much more often than others.
+
+**Exposure bias:** The data record preferences mainly among movies users actually watched and rated; unwatched or unknown titles provide no explicit negative signal, which shapes what any model can learn from the matrix.
+
+The next two subsections pair these **sources of bias** with **what we do in this repository** (acquisition + main analysis pipeline) versus **standard mitigations** that are out of scope for the submitted notebook but follow from the same issues.
 
 ### Bias Mitigation
 
-To address the identified biases and ensure robust analysis, we implement the following mitigation strategies:
+**What we do in this project (aligned with the identification above):**
 
-**Minimum Rating Threshold:** Apply a minimum threshold of 10 ratings per movie to filter out noise from the long tail and reduce the impact of individual outliers. This threshold can be adjusted based on analysis requirements and will be documented in the analysis pipeline.
+**Preserve the full published extract at acquisition:** We do not drop long-tail movies or thin users when building the downloadable tables, so we do not bake popularity thresholds or genre cuts into the **raw** dataset. That keeps MNAR and long-tail issues **visible** and supports honest documentation (see **Data Provenance**).
 
-**Temporal Segmentation:** Segment data by time periods (e.g., 1995-2005, 2006-2015, 2016-2019) to identify and account for temporal trends in rating behavior. Model training will focus on recent years (2015-2019) to ensure predictions reflect current user preferences while maintaining awareness of historical patterns.
+**Reproducible modeling sample for collaborative filtering:** The analysis pipeline (`pipeline/solution_pipeline.ipynb`) trains and evaluates on a **fixed, reproducible random sample** of ratings so matrix factorization is practical in a notebook. Sampling controls **compute cost**, not a claim that the full matrix is MNAR-free; we report metrics on that sample and compare **SVD** to a **global-mean baseline** with a held-out split and **k-fold cross-validation**, and we state limitations in the notebook and press release (e.g., not a full cold-start study).
 
-**Stratified Sampling:** Use stratified sampling across genres, release years, and popularity tiers when creating training/test splits to ensure underrepresented categories receive adequate representation in model evaluation. This prevents the model from overfitting to popular mainstream content.
+**Transparency:** We describe where sparsity, popularity skew, and temporal span matter, and we avoid implying that a single global RMSE on one split “solves” exposure or cold start.
 
-**Weighted Rating Systems:** Implement inverse frequency weighting to give more influence to ratings of less popular movies during model training, partially counteracting popularity bias and improving recommendations for niche content.
+**Mitigations we do *not* implement in the main pipeline (but that directly target the biases above):**
 
-**User Normalization:** Normalize ratings by each user's mean and standard deviation to account for individual rating tendencies. Some users consistently rate high (grade inflation) while others rate low (harsh critics), and normalization helps isolate true preference signals from rating style.
-
-**Cold-Start Awareness:** Develop separate evaluation metrics and handling strategies for new users (fewer than 10 ratings) and new movies (fewer than 10 ratings) to explicitly measure and communicate model performance limitations in cold-start scenarios rather than masking this weakness.
-
-**Transparency in Limitations:** All bias mitigation strategies and their parameters will be documented in the analysis pipeline with explicit acknowledgment of remaining limitations. Model performance will be evaluated separately across different movie popularity tiers and genres to identify where biases persist.
+These are legitimate approaches for a larger study: **minimum rating thresholds** per movie or user, **temporal slices** or recency weighting, **stratified** train/test splits by genre or popularity tier, **inverse-frequency** or **popularity-aware** weighting, **per-user normalization** of ratings, and **dedicated cold-start** evaluation. They are listed here to show how analysis could **account for** the same bias types—without overstating what the submitted Surprise `SVD` workflow runs end-to-end.
 
 ### Rationale for Critical Decisions
 
-**Dataset Selection:** We chose MovieLens 25M over custom data collection to ensure reproducibility, leverage well-documented provenance, and access sufficient scale (1+ GB) with clean relational structure. Custom web scraping would introduce ethical concerns around terms of service violations, create data quality issues, and reduce reproducibility. MovieLens provides the gold standard benchmark for recommender system research with extensive academic validation.
+**Dataset Selection:** We chose MovieLens 25M over custom data collection to ensure reproducibility, leverage well-documented provenance, and access sufficient scale (1+ GB) with clean relational structure. Custom web scraping would introduce ethical concerns around terms of service violations, create data quality issues, and reduce reproducibility. MovieLens provides the gold standard benchmark for recommender system research with extensive academic validation—consistent with the **selection and participation** issues called out under **Bias Identification**, which we document rather than try to “fix” by switching datasets.
 
 **User Table Derivation:** While users are implicit in the original dataset, we explicitly created a `users` table by aggregating rating statistics (`num_ratings`, `avg_rating`, `first_rating_date`, `last_rating_date`). This decision improves the relational model's clarity and enables user-centric analysis. The derived statistics are deterministic calculations from the ratings table with no introduced uncertainty beyond the underlying rating data.
 
 **Timestamp Preservation:** Unix epoch timestamps were retained in their original format rather than converting to datetime during data acquisition. This preserves data fidelity for reproducibility, enables efficient storage and computation, and supports temporal analysis without precision loss. Conversion to human-readable formats occurs in the analysis pipeline where needed.
 
-**No Filtering During Acquisition:** We deliberately preserved all movies and ratings without applying minimum threshold filters during data acquisition. This maintains dataset integrity and allows analysts to apply their own filtering criteria. Long-tail movies may be valuable for specific use cases (e.g., niche recommendation engines) even if excluded from general model training.
+**No Filtering During Acquisition:** We deliberately preserved all movies and ratings without applying minimum threshold filters during data acquisition. This matches the **Bias Mitigation** principle of not discarding long-tail structure before analysis; any optional filtering belongs in **downstream** modeling choices (and our main pipeline uses **sampling for scale**, not a permanent drop of rare items from the stored tables).
 
 **Genome Data Inclusion:** We included the optional `genome-scores` and `genome-tags` tables despite adding 415 MB of data. These tables provide machine-generated tag relevance scores that enable content-based filtering approaches beyond pure collaborative filtering. This enriches the dataset for hybrid recommendation models while remaining optional for basic implementations.
 
 **Parquet Alongside CSV:** Both CSV and Parquet formats were generated (rubric requirement) despite 81.8% redundancy. CSV ensures broad compatibility and human readability for validation, while Parquet provides efficient compression and faster read performance for large-scale analysis. This dual format approach optimizes for both accessibility and performance.
 
-**Uncertainty Sources:** Primary sources of uncertainty include: (1) user rating subjectivity and variance across repeat viewings, (2) temporal drift in user preferences over the 24-year collection period, (3) incomplete coverage of the movie universe (only ~62K of millions of films), and (4) demographic skew of the MovieLens user base versus general population. These uncertainties are inherent to observational user behavior data and cannot be fully eliminated, only acknowledged and accounted for in modeling decisions.
+**Uncertainty Sources:** Primary sources of uncertainty include: (1) user rating subjectivity and variance across repeat viewings, (2) temporal drift in user preferences over the 24-year collection period, (3) incomplete coverage of the movie universe (only ~62K of millions of films), and (4) demographic skew of the MovieLens user base versus general population—overlapping the **selection**, **temporal**, and **representation** themes in **Bias Identification**. These uncertainties are inherent to observational user behavior data and cannot be fully eliminated, only acknowledged and reflected in how we scope evaluation and claims.
 
 ---
 
