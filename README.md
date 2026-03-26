@@ -1,7 +1,7 @@
 # DS 4320 Project 1: Predicting Movie Ratings Using Collaborative Filtering
 
 ## Executive Summary
-[To be completed]
+This repository is the home for DS 4320 Project 1: **predicting personalized movie ratings** with **collaborative filtering** on **MovieLens 25M**. The README organizes the submission into the rubric’s main threads—**problem definition**, **domain exposition** (terminology, readings), **data creation** (provenance, code, bias, decisions), **metadata** (ER diagram, table index, data dictionary, uncertainty), and the **problem–solution pipeline** (data prep, queries, modeling, evaluation, and figures)—with **quick links** to the press release, OneDrive-hosted datasets, and pipeline folder. Supporting assets include the **license**, **documentation figures**, and **visualizations** referenced throughout; **bulk data files are not in Git** and are accessed via the linked **UVA OneDrive** linked below under "Quick Links."
 
 **Author:** [Minu Choi]  
 **NetID:** [qce2dp]  
@@ -49,7 +49,7 @@ By predicting ratings with collaborative filtering on the MovieLens 25M benchmar
 
 **Press Release**
 
-**Headline:** Smarter Movie Recommendations: Collaborative Filtering System Achieves 20% Better Accuracy Than Popularity-Based Approaches
+**Headline:** Smarter Movie Recommendations: Collaborative Filtering Beats a Naive Average Baseline by About 15% on Rating Error
 
 **Full Press Release:** [PRESS_RELEASE.md](PRESS_RELEASE.md)
 
