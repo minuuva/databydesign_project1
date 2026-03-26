@@ -3,8 +3,8 @@
 ## Executive Summary
 This repository is the home for DS 4320 Project 1: **predicting personalized movie ratings** with **collaborative filtering** on **MovieLens 25M**. The README organizes the submission into the rubric’s main threads—**problem definition**, **domain exposition** (terminology, readings), **data creation** (provenance, code, bias, decisions), **metadata** (ER diagram, table index, data dictionary, uncertainty), and the **problem–solution pipeline** (data prep, queries, modeling, evaluation, and figures)—with **quick links** to the press release, OneDrive-hosted datasets, and pipeline folder. Supporting assets include the **license**, **documentation figures**, and **visualizations** referenced throughout; **bulk data files are not in Git** and are accessed via the linked **UVA OneDrive** linked below under "Quick Links."
 
-**Author:** [Minu Choi]  
-**NetID:** [qce2dp]  
+**Author:** Minu Choi  
+**NetID:** qce2dp  
 **DOI:** [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19228589.svg)](https://doi.org/10.5281/zenodo.19228589)  
 **License:** [MIT License](LICENSE)
 
