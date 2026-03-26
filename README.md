@@ -23,29 +23,30 @@ Recommending content (e.g., Netflix) - General Problem #14 from DS 4320 Project 
 
 ### Refined Specific Problem:
 
-Predicting personalized movie ratings on a 0.5-5.0 star scale for individual users by leveraging collaborative filtering patterns, temporal rating dynamics, and genre preferences to improve recommendation accuracy beyond baseline popularity-based and demographic approaches.
+Predicting personalized movie ratings on a 0.5–5.0 star scale for individual users using collaborative filtering (matrix factorization), evaluated against a simple **global-mean** baseline that predicts the same average rating for every user–movie pair, matching how we report results in the press release and pipeline.
 
 ### Rationale for Refinement
+
 The general problem of "recommending content" is too broad and encompasses multiple solution approaches (collaborative filtering, content-based filtering, hybrid methods, ranking systems, etc.). We refined this to focus specifically on **rating prediction** rather than binary like/dislike or ranking because:
 
 1. **Granular Feedback:** Star ratings provide more nuanced user preference signals (a 5-star vs 2-star rating reveals intensity of preference) compared to implicit feedback (clicks, views) or binary indicators, enabling more precise personalization.
 
 2. **Standardized Evaluation:** Rating prediction has well-established evaluation metrics (RMSE, MAE) that allow direct comparison with decades of research and industry baselines, particularly from the Netflix Prize competition which established RMSE benchmarks.
 
-3. **Temporal Component:** By incorporating temporal dynamics (how user preferences evolve over time), we address a critical real-world challenge that simpler popularity-based approaches ignore—users change their tastes, and recent ratings should inform predictions more than decade-old ratings.
+3. **Temporal Context in the Data:** MovieLens spans many years of ratings, so “average taste” and activity mix can shift over time. This is an important real-world complication that motivates careful evaluation, even when the primary model in this project is trained and tested with a standard supervised split (as in our SVD vs global-mean comparison).
 
-4. **Cold-Start Distinction:** Explicitly focusing on rating prediction allows us to measure and communicate performance separately for warm-start (established users/movies) versus cold-start (new users/movies) scenarios, which is crucial for deployment planning in production recommendation systems.
+4. **Deployment-Relevant Failure Modes:** Rating prediction is the standard setting for RMSE/MAE benchmarking, while cold start and popularity bias remain central *product* challenges; this project focuses on overall held-out error versus a global-mean baseline rather than a separate cold-start evaluation split.
 
 ### Motivation
 Streaming platforms like Netflix, Amazon Prime Video, and Disney+ collectively serve over 1.5 billion subscribers globally, with recommendation systems driving 70-80% of content consumption according to industry reports. A 1% improvement in recommendation accuracy translates to millions of dollars in retained subscribers and reduced churn. However, current systems struggle with three key challenges:
 
 **Personalization at Scale:** With hundreds of thousands of titles and millions of users, generic popularity-based recommendations create filter bubbles and fail to surface niche content that individual users would love. Effective collaborative filtering can help users discover hidden gems outside mainstream trends.
 
-**The Cold-Start Problem:** New users with few ratings and new releases with limited viewing history receive poor recommendations, creating a critical onboarding challenge. Understanding model performance degradation in cold-start scenarios enables better user experience design and hybrid recommendation strategies.
+**The Cold-Start Problem:** New users with few ratings and new releases with limited viewing history receive poor recommendations, creating a critical onboarding challenge. Designing good onboarding and hybrid strategies matters because cold-start users and titles are where generic defaults hurt most, even when this project’s evaluation focuses on overall held-out error.
 
-**Temporal Drift:** User preferences evolve—someone who loved action movies in college may prefer documentaries a decade later. Static models trained on all historical data equally fail to adapt, while temporal weighting and recency-aware models capture these shifts.
+**Temporal Drift:** User preferences evolve—someone who loved action movies in college may prefer documentaries a decade later. Datasets like MovieLens reflect long time horizons, so “one static average for everyone” can be a weak mental model even before you add personalization; our reported modeling choice is matrix factorization evaluated against a global-mean baseline, with temporal patterns discussed mainly as motivation and data context.
 
-By predicting ratings with collaborative filtering on the MovieLens 25M benchmark dataset (the gold standard with 25 million ratings from 162,000 users), we can develop and evaluate recommendation algorithms that address these challenges, contributing to the broader goal of helping users discover content they'll genuinely enjoy rather than just popular mainstream titles.
+By predicting ratings with collaborative filtering on the MovieLens 25M benchmark dataset (about 25 million ratings from roughly 162,000 users), we can benchmark personalized models against a transparent strawman (predict the global average for every interaction) and quantify gains in RMSE/MAE, the same comparison highlighted in the press release.
 
 **Press Release**
 
