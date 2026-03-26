@@ -5,7 +5,7 @@ This repository is the home for DS 4320 Project 1: **predicting personalized mov
 
 **Author:** [Minu Choi]  
 **NetID:** [qce2dp]  
-**DOI:** [To be created]  
+**DOI:** [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19228589.svg)](https://doi.org/10.5281/zenodo.19228589)  
 **License:** [MIT License](LICENSE)
 
 ### Quick Links
