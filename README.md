@@ -266,3 +266,4 @@ Comprehensive uncertainty metrics for **analytically relevant** numerical featur
 ---
 
 ## Repository Structure
+databydesign_project1/ ├── README.md # Main rubric narrative + navigation ├── LICENSE ├── PRESS_RELEASE.md ├── .gitignore ├── code/ │ ├── data_acquisition.ipynb │ ├── data_acquisition.log │ ├── pipeline_demo.ipynb │ ├── pipeline_demo.log │ └── data_output/ # local only; large files gitignored ├── data/ │ └── README.md # OneDrive link + file inventory ├── docs/ │ └── er_diagram.png ├── pipeline/ │ ├── solution_pipeline.ipynb │ ├── solution_pipeline.md │ ├── solution_pipeline.log │ └── solution_pipeline_files/ └── visualizations/ ├── movielens_press_release.png ├── pipeline_cf_eval.png └── press_release_viz.ipynb
